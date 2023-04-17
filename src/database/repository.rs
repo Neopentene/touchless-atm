@@ -1,6 +1,3 @@
-use std::collections::HashMap;
-use std::env;
-extern crate dotenv;
 use crate::database::helpers::indexes::{
     account_indexes, admin_indexes, atm_indexes, token_indexes,
 };
@@ -9,6 +6,8 @@ use crate::resolve_result;
 use dotenv::dotenv;
 use mongodb::bson::doc;
 use mongodb::{sync::Client, sync::Collection};
+use std::collections::HashMap;
+use std::env;
 
 use crate::models::{admin::ADMIN, logs::LOG};
 

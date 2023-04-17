@@ -7,26 +7,40 @@ mod utilities;
 
 #[macro_use]
 extern crate rocket;
+extern crate dotenv;
 
 use database::repository::Repository;
+use dotenv::dotenv;
 use errors::catchers::*;
 use rocket::Config;
 use routes::{create::*, details::*, login::*, transaction::*};
-use std::{env, net::Ipv4Addr};
+use std::{env, net::Ipv4Addr, str::FromStr};
 use utilities::cors::*;
 
 // TODO -> Use resolve_result macro in place of match clauses
 
 #[launch]
 async fn rocket() -> _ {
+    dotenv().ok();
     env::set_var("RUST_BACKTRACE", "full");
     let repository = match Repository::init().await {
         Ok(repository) => repository,
         Err(error) => panic!("Failed to initialize repository: {}", error),
     };
 
+    let url = resolve_result!(name, _ -> env::var("URL"); {name} | {
+        panic!("Couldn't Load Variable URL")
+    });
+
+    let config = Config {
+        port: 8000,
+        address: Ipv4Addr::from_str(&url).unwrap().into(),
+        ..Config::debug_default()
+    };
+
     rocket::build()
         .manage(repository)
+        .configure(config)
         .attach(CORS)
         .register(
             "/",
