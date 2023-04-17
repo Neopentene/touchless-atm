@@ -27,7 +27,6 @@ async fn rocket() -> _ {
 
     rocket::build()
         .manage(repository)
-        .configure(config)
         .attach(CORS)
         .register(
             "/",
