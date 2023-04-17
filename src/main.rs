@@ -25,12 +25,6 @@ async fn rocket() -> _ {
         Err(error) => panic!("Failed to initialize repository: {}", error),
     };
 
-    let config = Config {
-        port: 8000,
-        address: Ipv4Addr::new(127, 0, 0, 1).into(),
-        ..Config::debug_default()
-    };
-
     rocket::build()
         .manage(repository)
         .configure(config)
