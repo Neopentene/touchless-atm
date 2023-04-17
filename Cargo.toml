@@ -2,6 +2,7 @@
 name = "server"
 version = "0.1.0"
 edition = "2021"
+publish = false
 authors = ['Neopentene - Celestyn']
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -16,6 +17,3 @@ rand = "^0.8.5"
 ring = "^0.16.20"
 rocket = { version = "^0.5.0-rc.3", features = ["json"] }
 serde = "^1.0.154"
-tokio = "1.27.0"
-shuttle-runtime = "0.14.0"
-shuttle-rocket = "0.14.0"

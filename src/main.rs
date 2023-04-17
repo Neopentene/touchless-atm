@@ -17,8 +17,8 @@ use utilities::cors::*;
 
 // TODO -> Use resolve_result macro in place of match clauses
 
-#[shuttle_runtime::main]
-async fn rocket() -> shuttle_rocket::ShuttleRocket {
+#[launch]
+async fn rocket() -> _ {
     env::set_var("RUST_BACKTRACE", "full");
     let repository = match Repository::init().await {
         Ok(repository) => repository,
@@ -31,7 +31,7 @@ async fn rocket() -> shuttle_rocket::ShuttleRocket {
         ..Config::debug_default()
     };
 
-    let rocket = rocket::build()
+    rocket::build()
         .manage(repository)
         .configure(config)
         .attach(CORS)
@@ -59,9 +59,7 @@ async fn rocket() -> shuttle_rocket::ShuttleRocket {
         .mount(
             "/",
             routes![get_otp_account, get_otp_atm, get_txn_status_atm],
-        );
-
-    Ok(rocket.into())
+        )
 }
 
 // Testing
