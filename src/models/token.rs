@@ -32,7 +32,7 @@ impl TOKEN {
     pub const UNAUTHORIZED_ERROR: &str = "Unauthorized";
     pub const NOT_FOUND: &str = "Not Found";
     pub const BEARER: &str = "Bearer ";
-    pub const DEFAULT_EXPIRY: i64 = 86_400_000_000;
+    pub const DEFAULT_EXPIRY: i64 = 86_400_000;
 
     pub fn new(sub: String, role: String) -> Result<TOKEN, String> {
         let timestamp = timestamp_millis();
