@@ -184,6 +184,8 @@ So, here are the following routes offered to ATM:
 - POST [`/atm/txn/confirm`](#post-atmtxnconfirm)
 - GET [`/get/atm`](#get-getatm)
 - GET [`/atm/txn/otp`](#get-atmtxnotp)
+- GET [`/atm/txn/recent/value`](#get-atmtxnrecentvalue)
+- GET [`/atm/txn/status/reject`](#get-atmtxnstatusreject)
 
 ## Account Routes
 An account refers to the actual account a user holds. Without the account number no transaction can take place. It's quite obvious but an account in this API comes with extra superpowers.
