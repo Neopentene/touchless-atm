@@ -481,6 +481,34 @@ If there are any pending transactions then otp is sent in the reponse. **Not a s
 
 </details>
 
+### GET `/atm/txn/recent/value`
+> ATM Only
+
+> Token Required
+
+<details>
+<summary>Requirements</summary>
+
+`Expects no body but token in the Authorization header`
+
+**Not a secure method** Gets the amount of recent transaction made.
+
+</details>
+
+### GET `/atm/txn/status/reject`
+> ATM Only
+
+> Token Required
+
+<details>
+<summary>Requirements</summary>
+
+`Expects no body but token in the Authorization header`
+
+Rejects all the pending transactions of the requesting atm.
+
+</details>
+
 [comment]: <> (# Cryptography added later)
 
 # Dependencies

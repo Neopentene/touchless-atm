@@ -24,7 +24,7 @@ pub struct Repository {
 impl Repository {
     pub async fn init() -> Result<Repository, String> {
         dotenv().ok();
-        let mongo_uri = resolve_result!(name, _ -> env::var("URI"); {name} | {
+        let mongo_uri = resolve_result!(name, _ -> env::var("LOCAL"); {name} | {
             return Err("Couldn't Load Variable URI".to_string())
         });
 

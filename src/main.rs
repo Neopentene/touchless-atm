@@ -33,7 +33,7 @@ async fn rocket() -> _ {
     });
 
     let config = Config {
-        port: 8000,
+        port: 8080,
         address: Ipv4Addr::from_str(&url).unwrap().into(),
         ..Config::debug_default()
     };
@@ -65,8 +65,14 @@ async fn rocket() -> _ {
         .mount("/", routes![confirm_txn_account, confirm_txn_atm])
         .mount(
             "/",
-            routes![get_otp_account, get_otp_atm, get_txn_status_atm],
+            routes![
+                get_otp_account,
+                get_otp_atm,
+                get_txn_status_atm,
+                get_txn_recent_value
+            ],
         )
+        .mount("/", routes![reject_atm_txn])
 }
 
 // Testing

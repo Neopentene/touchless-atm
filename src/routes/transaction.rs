@@ -215,3 +215,32 @@ pub async fn get_txn_status_atm(
         .status(Status::Found)
         .clone())
 }
+
+#[get("/atm/txn/recent/value")]
+pub async fn get_txn_recent_value(
+    token: TOKEN,
+    db: &State<Repository>,
+) -> Result<Response<i64>, Status> {
+    check_if_401!(!Type::ATM.cmp(&token.role.value()));
+    let atm = db.get_atm_from_id(&token.sub).await?;
+    let txn = db.get_recent_txn("atm", &atm.name).await?;
+    Ok(Response::<i64>::new()
+        .success()
+        .data(txn.amount)
+        .status(Status::Found)
+        .clone())
+}
+
+#[get("/atm/txn/status/reject")]
+pub async fn reject_atm_txn(
+    token: TOKEN,
+    db: &State<Repository>,
+) -> Result<Response<String>, Status> {
+    check_if_401!(!Type::ATM.cmp(&token.role.value()));
+    let atm = db.get_atm_from_id(&token.sub).await?;
+    check_ok_406!(db.reject_all_pending_txn("atm", &atm.name).await)?;
+    Ok(Response::<String>::new()
+        .success()
+        .status(Status::Ok)
+        .clone())
+}
